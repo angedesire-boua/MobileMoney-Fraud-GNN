@@ -1,0 +1,12 @@
+﻿Variable,Type métier,Description,Présente
+step,Temporelle,Pas de temps de la simulation.,True
+type,Catégorielle,Type d'opération financière.,True
+amount,Numérique,Montant de la transaction.,True
+nameOrig,Identifiant,Compte émetteur.,True
+oldbalanceOrg,Numérique,Solde émetteur avant transaction.,True
+newbalanceOrig,Numérique,Solde émetteur après transaction.,True
+nameDest,Identifiant,Compte destinataire.,True
+oldbalanceDest,Numérique,Solde destinataire avant transaction.,True
+newbalanceDest,Numérique,Solde destinataire après transaction.,True
+isFraud,Cible,Indique si la transaction est frauduleuse.,True
+isFlaggedFraud,Indicateur,Alerte produite par une règle métier.,True

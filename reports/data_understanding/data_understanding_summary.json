@@ -1,0 +1,17 @@
+{
+    "rows": 6362620,
+    "columns": 11,
+    "memory_mb": 706.2177867889404,
+    "fraud_count": 8213,
+    "fraud_rate_percent": 0.12908204481801522,
+    "imbalance_ratio": 773.7010836478753,
+    "unique_accounts": 9073900,
+    "unique_steps": 743,
+    "estimated_days": 31,
+    "missing_values": 0,
+    "complete_duplicate_rows": 0,
+    "fraud_transaction_types": [
+        "CASH_OUT",
+        "TRANSFER"
+    ]
+}

@@ -1,0 +1,10 @@
+﻿Indicateur,Valeur
+Transactions,6362620.0
+Transactions légitimes,6354407.0
+Fraudes,8213.0
+Taux de fraude (%),0.12908204481801522
+Comptes sources uniques,6353307.0
+Comptes destinations uniques,2722362.0
+Nœuds du graphe,9073900.0
+Arêtes transactionnelles,6362620.0
+Fraudes avec transfert total,8008.0

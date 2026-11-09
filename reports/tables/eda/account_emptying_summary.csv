@@ -1,0 +1,3 @@
+﻿isFraud,Transactions,Montant_égal_au_solde,Compte_vidé,Transfert_total,Montant_supérieur_au_solde,Taux montant égal au solde (%),Taux compte vidé (%),Taux transfert total (%),Taux montant supérieur au solde (%),Classe
+0,6354407,1,1512569,0,4079050,1.5737109694106783e-05,23.8034642729054,0.0,64.19245729774627,Légitime
+1,8213,8018,8012,8008,29,97.6257153293559,97.552660416413,97.50395714111774,0.35309874589066115,Fraude

@@ -1,0 +1,8 @@
+streamlit>=1.59.2,<2
+lightgbm>=4,<5
+networkx>=3,<4
+numpy>=2,<3
+pandas>=2,<4
+plotly>=6,<7
+pyarrow>=18
+scipy>=1.14,<2

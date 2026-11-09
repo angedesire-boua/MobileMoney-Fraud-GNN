@@ -1,0 +1,152 @@
+{
+    "dataset": "PaySim",
+    "notebook": "04_machine_learning_baseline.ipynb",
+    "random_state": 42,
+    "experimental_protocol": {
+        "split_type": "temporal",
+        "train_steps": [
+            1,
+            334
+        ],
+        "validation_steps": [
+            335,
+            392
+        ],
+        "test_steps": [
+            393,
+            743
+        ],
+        "primary_metric": "average_precision",
+        "threshold_selection": "Validation only",
+        "test_used_for_selection": false
+    },
+    "data": {
+        "transactions": 6362620,
+        "train_transactions": 4771387,
+        "validation_transactions": 792406,
+        "test_transactions": 798827,
+        "train_frauds": 3745,
+        "validation_frauds": 638,
+        "test_frauds": 3830
+    },
+    "core_model": {
+        "model": "LightGBM",
+        "feature_set": "Core",
+        "n_features": 22,
+        "features": [
+            "amount",
+            "oldbalanceOrg",
+            "newbalanceOrig",
+            "oldbalanceDest",
+            "newbalanceDest",
+            "log_amount",
+            "amount_to_dest_balance_ratio",
+            "origin_balance_change",
+            "destination_balance_change",
+            "origin_zero_before",
+            "origin_zero_after",
+            "destination_zero_before",
+            "destination_zero_after",
+            "type",
+            "orig_prev_transactions",
+            "orig_prev_volume",
+            "orig_prev_mean_amount",
+            "orig_time_since_last",
+            "dest_prev_transactions",
+            "dest_prev_volume",
+            "dest_prev_mean_amount",
+            "dest_time_since_last"
+        ],
+        "best_iteration": 209,
+        "threshold": 0.31370041201761084,
+        "threshold_strategy": "Validation Max F1",
+        "model_file": "lightgbm_core_baseline.txt",
+        "test_average_precision": 0.9797490482651903,
+        "test_roc_auc": 0.9998900953206874,
+        "test_precision": 0.9822294022617124,
+        "test_recall": 0.793733681462141,
+        "test_f1": 0.8779783393501805
+    },
+    "full_model": {
+        "model": "LightGBM",
+        "feature_set": "Full",
+        "n_features": 31,
+        "features": [
+            "amount",
+            "oldbalanceOrg",
+            "newbalanceOrig",
+            "oldbalanceDest",
+            "newbalanceDest",
+            "log_amount",
+            "amount_to_dest_balance_ratio",
+            "origin_balance_change",
+            "destination_balance_change",
+            "origin_zero_before",
+            "origin_zero_after",
+            "destination_zero_before",
+            "destination_zero_after",
+            "type",
+            "orig_prev_transactions",
+            "orig_prev_volume",
+            "orig_prev_mean_amount",
+            "orig_time_since_last",
+            "dest_prev_transactions",
+            "dest_prev_volume",
+            "dest_prev_mean_amount",
+            "dest_time_since_last",
+            "amount_to_oldbalance_ratio",
+            "origin_balance_residual",
+            "destination_balance_residual",
+            "origin_emptied",
+            "amount_equals_oldbalance",
+            "cycle_sin",
+            "cycle_cos",
+            "simulated_day",
+            "dest_active_last_24"
+        ],
+        "best_iteration": 65,
+        "threshold": 0.0003134442718939925,
+        "threshold_strategy": "Validation separation midpoint",
+        "model_file": "lightgbm_full_paysim_sensitive.txt",
+        "test_average_precision": 0.999740211869509,
+        "test_roc_auc": 0.9998947085374323,
+        "test_precision": 0.9997382884061764,
+        "test_recall": 0.9973890339425587,
+        "test_f1": 0.998562279440596
+    },
+    "paysim_sensitive": {
+        "features": [
+            "amount_equals_oldbalance",
+            "amount_to_oldbalance_ratio",
+            "cycle_cos",
+            "cycle_sin",
+            "dest_active_last_24",
+            "destination_balance_residual",
+            "origin_balance_residual",
+            "origin_emptied",
+            "simulated_day"
+        ],
+        "interpretation": "Full performance is strongly dependent on PaySim-specific patterns and must not be interpreted as a conservative estimate of real-world generalisation."
+    },
+    "behavioral_ablation": {
+        "historical_features": [
+            "orig_prev_transactions",
+            "orig_prev_volume",
+            "orig_prev_mean_amount",
+            "orig_time_since_last",
+            "dest_prev_transactions",
+            "dest_prev_volume",
+            "dest_prev_mean_amount",
+            "dest_time_since_last"
+        ],
+        "core_validation_ap": 0.9297036922443951,
+        "no_history_validation_ap": 0.9308537077777049
+    },
+    "software": {
+        "python": "3.13.7",
+        "pandas": "3.0.3",
+        "numpy": "2.2.6",
+        "scikit_learn": "1.8.0",
+        "lightgbm": "4.6.0"
+    }
+}

@@ -1,0 +1,8 @@
+﻿type,isFraud,Transactions,Transferts_totaux,Taux transfert total (%),Classe
+CASH_IN,0,1399284,0,0.0,Légitime
+CASH_OUT,0,2233384,0,0.0,Légitime
+CASH_OUT,1,4116,4075,99.00388726919338,Fraude
+DEBIT,0,41432,0,0.0,Légitime
+PAYMENT,0,2151495,0,0.0,Légitime
+TRANSFER,0,528812,0,0.0,Légitime
+TRANSFER,1,4097,3933,95.99707102758116,Fraude

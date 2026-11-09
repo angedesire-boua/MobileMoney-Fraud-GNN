@@ -1,0 +1,13 @@
+﻿Prochaine étape,Décision
+Feature Engineering,Créer des ratios et variations de soldes
+Feature Engineering,Créer des features temporelles historiques
+Feature Engineering,Créer des features comportementales et relationnelles
+Machine Learning,Utiliser un split chronologique
+Machine Learning,Traiter le déséquilibre uniquement sur le train
+Machine Learning,Comparer modèles linéaires et non linéaires
+Graph Construction,"Compte = nœud, transaction = arête"
+Graph Construction,Indexer les comptes avec des identifiants numériques
+Graph Learning,Utiliser GraphSAGE comme baseline
+Dynamic Graph Learning,Tester TGN comme modèle principal
+Évaluation,"Prioriser PR-AUC, Recall et F1"
+Robustesse,Réaliser une étude d'ablation PaySim

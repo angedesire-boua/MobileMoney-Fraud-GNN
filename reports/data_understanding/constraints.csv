@@ -1,0 +1,7 @@
+﻿Contrainte,Constat,Conséquence méthodologique
+Volume,"6,362,620 transactions",Vectoriser et optimiser la mémoire.
+Déséquilibre,0.129082 % de fraude,Utiliser des métriques adaptées.
+Temporalité,743 steps,Adopter un split chronologique.
+Structure relationnelle,"9,073,900 comptes uniques",Construire un graphe orienté.
+Identifiants,Forte cardinalité,Éviter le One-Hot Encoding.
+Nature,Dataset synthétique,Limiter les conclusions opérationnelles.

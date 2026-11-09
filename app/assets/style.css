@@ -1,0 +1,3064 @@
+/* ============================================================
+   Mobile Money Fraud Detection · Console
+   Design system (Dark mode par défaut)
+   ============================================================ */
+
+:root {
+    color-scheme: dark;
+
+    /* Fonds */
+    --bg-page: #081422;
+    --bg-sidebar: #0B1A2B;
+    --bg-topbar: #0D1B2C;
+    --bg-panel: #102238;
+    --bg-panel-strong: #12263F;
+    --bg-panel-soft: #0E1E33;
+    --bg-input: #0F2036;
+    --bg-hover: #16304C;
+
+    /* Bordures */
+    --border: #294058;
+    --border-strong: #33506F;
+    --border-soft: rgba(148, 175, 205, 0.14);
+
+    /* Textes */
+    --text-primary: #F3F7FB;
+    --text-secondary: #C8D3E0;
+    --text-muted: #9FB0C3;
+    --text-dim: #91A3B8;
+
+    /* Accents */
+    --primary: #3B82F6;
+    --primary-soft: rgba(59, 130, 246, 0.16);
+    --primary-strong: #60A5FA;
+
+    --cyan: #38BDF8;
+    --cyan-soft: rgba(56, 189, 248, 0.14);
+
+    --success: #22C55E;
+    --success-soft: rgba(34, 197, 94, 0.14);
+
+    --danger: #EF4444;
+    --danger-soft: rgba(239, 68, 68, 0.14);
+
+    --warning: #F59E0B;
+    --warning-soft: rgba(245, 158, 11, 0.14);
+
+    /* Métriques */
+    --radius: 10px;
+    --radius-sm: 7px;
+    --radius-xs: 5px;
+    --shadow-panel: 0 1px 0 rgba(255,255,255,0.02) inset, 0 6px 18px rgba(0,0,0,0.35);
+    --shadow-elevated: 0 12px 28px rgba(0,0,0,0.45);
+    --font-stack: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+html,
+body,
+[data-testid="stAppViewContainer"] {
+    background: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-stack);
+}
+
+[data-testid="stAppViewContainer"] {
+    background-image:
+        radial-gradient(1200px 400px at 50% -8%, rgba(59,130,246,0.05), transparent 60%),
+        linear-gradient(rgba(59, 130, 246, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.015) 1px, transparent 1px);
+    background-size: auto, 46px 46px, 46px 46px;
+}
+
+/* Header Streamlit (masqué visuellement, on garde le topbar custom) */
+[data-testid="stHeader"],
+.stAppHeader {
+    background: transparent !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    border-bottom: 0 !important;
+    display: none !important;
+    pointer-events: none !important;
+}
+
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+/* Décorateur haut (rainbow) */
+[data-testid="stDecoration"] {
+    display: none !important;
+}
+
+/* Contenu principal — dense */
+.block-container {
+    width: 100%;
+    max-width: none;
+    padding-top: 0.7rem;
+    padding-bottom: 0.25rem;
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
+}
+
+/* Réduire l'espacement vertical par défaut */
+[data-testid="stVerticalBlock"] {
+    gap: 0.65rem;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]
+[data-testid="stVerticalBlock"] {
+    gap: 0.55rem;
+}
+
+
+/* ============================================================
+   Typographie
+   ============================================================ */
+
+h1, h2, h3, h4, h5 {
+    color: var(--text-primary) !important;
+    letter-spacing: 0;
+    margin-top: 0 !important;
+}
+
+h1 {
+    font-size: 1.6rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.2rem !important;
+    letter-spacing: 0;
+}
+
+h2 {
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+}
+
+h3 {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+}
+
+p {
+    color: var(--text-secondary);
+    font-size: 0.87rem;
+}
+
+[data-testid="stCaptionContainer"],
+[data-testid="stCaptionContainer"] p {
+    color: var(--text-muted) !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.01em;
+}
+
+[data-testid="stWidgetLabel"] p {
+    color: var(--text-secondary) !important;
+    font-weight: 600 !important;
+    font-size: 0.76rem !important;
+    letter-spacing: 0.02em;
+    text-transform: none;
+}
+
+/* Liens */
+a {
+    color: var(--cyan);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-strong);
+    text-decoration: underline;
+}
+
+
+/* ============================================================
+   Sidebar
+   ============================================================ */
+
+section[data-testid="stSidebar"] {
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+}
+
+section[data-testid="stSidebar"] > div {
+    padding-top: 0;
+}
+
+/* Brand haut */
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.4rem 0.5rem 0.95rem 0.5rem;
+    margin: 0 0.15rem 0.9rem 0.15rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.brand-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: var(--primary-soft);
+    border: 1px solid rgba(56, 245, 31, 0.42);
+    color: var(--primary-strong);
+    font-weight: 800;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+}
+
+.brand-text {
+    min-width: 0;
+    line-height: 1.2;
+}
+
+.brand-title {
+    color: var(--text-primary);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    line-height: 1.25;
+    text-transform: uppercase;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.brand-subtitle {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    margin-top: 0.15rem;
+    letter-spacing: 0.01em;
+}
+
+/* Navigation */
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] {
+    padding-top: 0.3rem;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] ul {
+    padding: 0 0.15rem !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a {
+    min-height: 37px;
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.3rem 0.7rem !important;
+    border-radius: 7px;
+    margin-bottom: 0.13rem;
+    color: var(--text-secondary) !important;
+    font-weight: 550;
+    font-size: 0.84rem !important;
+    letter-spacing: 0.005em;
+    border-left: 3px solid transparent;
+    transition: background-color 0.14s ease, color 0.14s ease;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a:hover {
+    background: rgba(59, 130, 246, 0.09);
+    color: var(--text-primary) !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a[aria-current="page"] {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.22), rgba(59, 130, 246, 0.06));
+    color: var(--text-primary) !important;
+    font-weight: 700;
+    border-left: 3px solid var(--primary-strong);
+}
+
+/* Icônes navigation — cyan pour l'actif, muted pour les autres */
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a span[data-testid="stIconMaterial"] {
+    color: var(--text-dim) !important;
+    opacity: 1 !important;
+    font-size: 1.05rem !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a:hover span[data-testid="stIconMaterial"] {
+    color: var(--cyan) !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a[aria-current="page"] span[data-testid="stIconMaterial"] {
+    color: var(--primary-strong) !important;
+}
+
+/* Section header ("Application") de la navigation */
+section[data-testid="stSidebar"] [data-testid="stNavSectionHeader"],
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] > div > div > p,
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] label {
+    color: var(--text-dim) !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    padding: 0.75rem 0.55rem 0.35rem !important;
+    margin: 0 !important;
+}
+
+/* Footer sidebar — bloc moteur, carte à part entière */
+.sidebar-footer {
+    margin: 1.05rem 0.35rem 0.5rem;
+    padding: 0.7rem 0.75rem 0.75rem;
+    border: 1px solid rgba(59, 130, 246, 0.22);
+    border-radius: 9px;
+    background: linear-gradient(160deg, rgba(59, 130, 246, 0.11), rgba(59, 130, 246, 0.03));
+}
+
+.sidebar-footer-label {
+    color: #8FA6C0;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.sidebar-model {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.sidebar-footer-text {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    margin-top: 0.45rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid rgba(148, 175, 205, 0.13);
+    letter-spacing: 0.005em;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Point d'état vert (moteur opérationnel) — pulsation discrète */
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.17), 0 0 12px rgba(34, 197, 94, 0.7);
+    flex-shrink: 0;
+    animation: dot-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.17), 0 0 12px rgba(34, 197, 94, 0.7); }
+    50%      { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.08), 0 0 16px rgba(34, 197, 94, 0.4); }
+}
+
+
+/* ============================================================
+   Topbar (header applicatif)
+   ============================================================ */
+
+.st-key-app_topbar {
+    background: var(--bg-topbar);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.55rem 0.85rem !important;
+    margin-bottom: 0.85rem !important;
+    box-shadow: var(--shadow-panel);
+}
+
+.st-key-app_topbar [data-testid="stVerticalBlockBorderWrapper"] {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.topbar-product {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-primary);
+    font-weight: 650;
+    font-size: 0.92rem;
+    letter-spacing: 0;
+}
+
+.topbar-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--primary-soft);
+    border: 1px solid rgba(59, 130, 246, 0.42);
+    color: var(--primary-strong);
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+}
+
+.topbar-context {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.topbar-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.28rem 0.62rem;
+    border-radius: 999px;
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.73rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    white-space: nowrap;
+}
+
+.topbar-chip--live {
+    background: rgba(34, 197, 94, 0.09);
+    border-color: rgba(34, 197, 94, 0.35);
+    color: #86EFAC;
+}
+
+.user-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.2rem 0.55rem;
+}
+
+.user-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--primary-soft);
+    border: 1px solid rgba(59, 130, 246, 0.42);
+    color: var(--primary-strong);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    flex-shrink: 0;
+}
+
+.user-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    min-width: 0;
+}
+
+.user-copy strong {
+    color: var(--text-primary);
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+.user-copy small {
+    color: var(--text-muted);
+    font-size: 0.66rem;
+    letter-spacing: 0.01em;
+}
+
+/* Boutons icônes carrés du topbar (theme + logout) */
+.st-key-theme_switch button,
+.st-key-login_theme_switch button,
+.st-key-logout_button button {
+    min-height: 34px !important;
+    height: 34px !important;
+    padding: 0 !important;
+    background: var(--bg-panel-soft) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-secondary) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    line-height: 1 !important;
+}
+
+.st-key-theme_switch button:hover,
+.st-key-login_theme_switch button:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-strong) !important;
+}
+
+.st-key-logout_button button {
+    background: transparent !important;
+    color: var(--text-muted) !important;
+}
+
+.st-key-logout_button button:hover {
+    background: var(--danger-soft) !important;
+    color: #FCA5A5 !important;
+    border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+/* Masquer le label texte, garder l'icône */
+.st-key-theme_switch button p,
+.st-key-login_theme_switch button p,
+.st-key-logout_button button p,
+.st-key-theme_switch button [data-testid="stMarkdownContainer"],
+.st-key-login_theme_switch button [data-testid="stMarkdownContainer"],
+.st-key-logout_button button [data-testid="stMarkdownContainer"] {
+    display: none !important;
+}
+
+.st-key-theme_switch button span[data-testid="stIconMaterial"],
+.st-key-login_theme_switch button span[data-testid="stIconMaterial"],
+.st-key-logout_button button span[data-testid="stIconMaterial"] {
+    font-size: 1.15rem !important;
+    color: inherit !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+}
+
+/* Écrase la hauteur inutile dûe aux wrappers tooltip Streamlit */
+.st-key-app_topbar .stTooltipIcon,
+.st-key-app_topbar .stTooltipHoverTarget,
+.st-key-app_topbar .stButton,
+.st-key-app_topbar .stElementContainer {
+    height: auto !important;
+    min-height: 0 !important;
+    align-items: center !important;
+}
+
+.st-key-app_topbar [data-testid="stColumn"] > [data-testid="stVerticalBlock"] {
+    min-height: 0 !important;
+    height: auto !important;
+    gap: 0 !important;
+}
+
+
+/* ============================================================
+   Page heading (titre / sous-titre par page)
+   ============================================================ */
+
+.page-heading {
+    margin-bottom: 0.65rem;
+}
+
+.page-heading-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.page-eyebrow {
+    color: var(--cyan);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    text-align: right;
+}
+
+.page-heading-row h1 {
+    margin-bottom: 0.2rem !important;
+    padding: 0 !important;
+}
+
+.page-heading p {
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    margin: 0;
+    max-width: 780px;
+}
+
+
+/* ============================================================
+   Panels bordurés (containers)
+   Streamlit 1.59 : la bordure de st.container(border=True) est
+   appliquée sur stVerticalBlock via un émotion-cache. On cible
+   toutes nos containers nommées.
+   ============================================================ */
+
+[class*="st-key-kpi_"],
+[class*="st-key-panel_"],
+[class*="st-key-command_"],
+.st-key-login_form_panel,
+.st-key-app_topbar {
+    background: var(--bg-panel) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-panel) !important;
+    padding: 0.75rem 0.9rem !important;
+}
+
+/* Neutraliser la bordure Streamlit par défaut (blanche) qui traîne */
+[data-testid="stVerticalBlock"][class*="st-key-"] {
+    border-color: var(--border) !important;
+}
+
+
+/* ============================================================
+   Colonnes — éviter le wrap forcé de Streamlit
+   ============================================================ */
+
+/* Streamlit impose min-width ~380px sur les colonnes ce qui casse
+   nos grilles compactes. On relâche pour permettre les densités. */
+[data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+    min-width: 0 !important;
+}
+
+/* Topbar : force absolument le rendu sur une seule ligne */
+.st-key-app_topbar [data-testid="stHorizontalBlock"] {
+    flex-wrap: nowrap !important;
+    align-items: center;
+}
+
+.st-key-app_topbar [data-testid="stColumn"] {
+    min-width: 0 !important;
+    overflow: hidden;
+}
+
+.st-key-app_topbar {
+    padding: 0.55rem 0.85rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* Panel heading (custom) — style SOC : label court, majuscules */
+.panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--text-primary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.panel-heading > span:first-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.panel-heading > span:first-child::before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 13px;
+    background: var(--cyan);
+    border-radius: 2px;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.45);
+}
+
+.panel-meta {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 550;
+    letter-spacing: 0.03em;
+    text-transform: none;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ============================================================
+   KPI cards (métriques)
+   ============================================================ */
+
+/* Carte KPI : label discret en capitales, valeur dominante */
+[class*="st-key-kpi_"] {
+    padding: 0.7rem 0.85rem 0.6rem !important;
+}
+
+[data-testid="stMetric"] {
+    padding: 0 !important;
+}
+
+[data-testid="stMetricLabel"] p {
+    color: var(--text-muted) !important;
+    font-size: 0.66rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+[data-testid="stMetricValue"] {
+    color: var(--text-primary) !important;
+    font-size: 1.78rem !important;
+    font-weight: 720 !important;
+    letter-spacing: 0;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    margin-top: 0.12rem;
+}
+
+[data-testid="stMetricDelta"] {
+    font-size: 0.7rem !important;
+}
+
+/* Légende sous la valeur KPI */
+[class*="st-key-kpi_"] [data-testid="stCaptionContainer"] p {
+    font-size: 0.7rem !important;
+    color: var(--text-dim) !important;
+    margin-top: 0.15rem;
+}
+
+/* Métriques hors cartes KPI : plus compactes */
+[class*="st-key-panel_"] [data-testid="stMetricValue"],
+[class*="st-key-command_"] [data-testid="stMetricValue"] {
+    font-size: 1.24rem !important;
+    letter-spacing: 0;
+}
+
+
+/* ============================================================
+   Inputs / Widgets
+   ============================================================ */
+
+/* Champs texte et numeriques.
+   Streamlit 1.59 a migre st.text_input / st.number_input de BaseWeb vers
+   react-aria : on cible les deux conventions pour rester compatible. */
+[data-baseweb="input"],
+[data-testid="stTextInputRootElement"],
+[data-testid="stNumberInputContainer"] {
+    background: var(--bg-input) !important;
+    border-radius: var(--radius-sm) !important;
+    border: 1px solid var(--border) !important;
+    min-height: 38px !important;
+}
+
+[data-baseweb="input"]:hover,
+[data-testid="stTextInputRootElement"]:hover,
+[data-testid="stNumberInputContainer"]:hover {
+    border-color: var(--border-strong) !important;
+}
+
+[data-baseweb="input"]:focus-within,
+[data-testid="stTextInputRootElement"]:focus-within,
+[data-testid="stNumberInputContainer"]:focus-within {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+}
+
+[data-baseweb="input"] input,
+[data-baseweb="input"] textarea,
+[data-testid="stTextInputRootElement"] input,
+[data-testid="stNumberInputField"],
+.react-aria-TextField input,
+.stTextArea textarea {
+    background: transparent !important;
+    color: var(--text-primary) !important;
+    font-size: 0.86rem !important;
+}
+
+[data-baseweb="input"] input::placeholder,
+[data-testid="stTextInputRootElement"] input::placeholder,
+[data-testid="stNumberInputField"]::placeholder {
+    color: var(--text-dim) !important;
+}
+
+/* Steppers +/- du number_input */
+[data-testid="stNumberInputStepUp"],
+[data-testid="stNumberInputStepDown"] {
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    border-color: var(--border) !important;
+}
+
+[data-testid="stNumberInputStepUp"]:hover,
+[data-testid="stNumberInputStepDown"]:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Bouton "afficher le mot de passe" (react-aria, pas de testid) */
+[data-testid="stTextInputRootElement"] button,
+.react-aria-TextField button {
+    background: transparent !important;
+    border: 0 !important;
+    color: var(--text-muted) !important;
+}
+
+[data-testid="stTextInputRootElement"] button:hover,
+.react-aria-TextField button:hover {
+    color: var(--text-primary) !important;
+}
+
+/* Selectbox */
+[data-baseweb="select"] > div {
+    background: var(--bg-input) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+    min-height: 38px !important;
+}
+
+[data-baseweb="select"] > div:hover {
+    border-color: var(--border-strong) !important;
+}
+
+[data-baseweb="select"] > div > div {
+    color: var(--text-primary) !important;
+    font-size: 0.86rem !important;
+}
+
+/* Multiselect tags */
+[data-baseweb="tag"] {
+    background: var(--primary-soft) !important;
+    color: #BFDBFE !important;
+    border: 1px solid rgba(59, 130, 246, 0.32) !important;
+    border-radius: var(--radius-xs) !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+}
+
+[data-baseweb="tag"] svg {
+    color: #93C5FD !important;
+}
+
+/* Dropdown list */
+[role="listbox"] {
+    background: var(--bg-panel-strong) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: var(--shadow-elevated);
+}
+
+[role="option"] {
+    color: var(--text-primary) !important;
+    font-size: 0.85rem !important;
+}
+
+[role="option"]:hover {
+    background: var(--bg-hover) !important;
+}
+
+/* Sliders */
+[data-testid="stSlider"] {
+    color: var(--text-secondary);
+}
+
+[data-testid="stSlider"] [data-baseweb="slider"] > div > div {
+    background: var(--border) !important;
+}
+
+[data-testid="stSlider"] [role="slider"] {
+    background: var(--primary) !important;
+    border: 2px solid #DBEAFE !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18) !important;
+}
+
+[data-testid="stSlider"] [data-baseweb="tick"] {
+    color: var(--text-dim) !important;
+}
+
+
+/* ============================================================
+   Boutons
+   ============================================================ */
+
+/* Base commune à tous les boutons, y compris ceux de formulaire.
+   On cible les data-testid : Streamlit distingue primary /
+   primaryFormSubmit / secondary / secondaryFormSubmit. */
+.stButton > button,
+.stDownloadButton > button,
+.stFormSubmitButton > button,
+[data-testid^="stBaseButton-"] {
+    min-height: 38px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.86rem;
+    letter-spacing: 0.005em;
+    transition: all 0.15s ease;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover,
+.stFormSubmitButton > button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.28);
+}
+
+/* Boutons primaires (action + soumission de formulaire) */
+[data-testid="stBaseButton-primary"],
+[data-testid="stBaseButton-primaryFormSubmit"] {
+    background: var(--primary) !important;
+    border: 1px solid var(--primary-strong) !important;
+    color: #FFFFFF !important;
+}
+
+[data-testid="stBaseButton-primary"]:hover,
+[data-testid="stBaseButton-primaryFormSubmit"]:hover {
+    background: #2563EB !important;
+    border-color: var(--primary) !important;
+    color: #FFFFFF !important;
+}
+
+/* Boutons secondaires (action + soumission de formulaire) */
+[data-testid="stBaseButton-secondary"],
+[data-testid="stBaseButton-secondaryFormSubmit"],
+.stDownloadButton > button {
+    background: var(--bg-panel-soft) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border) !important;
+}
+
+[data-testid="stBaseButton-secondary"]:hover,
+[data-testid="stBaseButton-secondaryFormSubmit"]:hover,
+.stDownloadButton > button:hover {
+    background: var(--bg-hover) !important;
+    border-color: var(--border-strong) !important;
+}
+
+/* Bouton "afficher le mot de passe" : bordure blanche Streamlit par défaut */
+[data-baseweb="input"] button {
+    background: transparent !important;
+    border: 0 !important;
+    color: var(--text-muted) !important;
+}
+
+[data-baseweb="input"] button:hover {
+    color: var(--text-primary) !important;
+}
+
+/* Page link */
+[data-testid="stPageLink"] a {
+    color: var(--cyan) !important;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+    padding: 0.3rem 0.55rem !important;
+    border-radius: var(--radius-xs) !important;
+    background: var(--cyan-soft);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all 0.14s ease;
+}
+
+[data-testid="stPageLink"] a:hover {
+    color: #FFFFFF !important;
+    background: rgba(56, 189, 248, 0.22);
+    border-color: rgba(56, 189, 248, 0.55);
+    text-decoration: none;
+}
+
+
+/* ============================================================
+   Dataframe & tables
+   ============================================================ */
+
+[data-testid="stDataFrame"],
+[data-testid="stDataFrameResizable"] {
+    background: var(--bg-panel-soft) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+    overflow: hidden;
+}
+
+.stDataFrameGlideDataEditor {
+    --gdg-bg-cell: #0F1E32 !important;
+    --gdg-bg-cell-medium: #101D2C !important;
+    --gdg-bg-header: #16263A !important;
+    --gdg-bg-header-has-focus: #17345A !important;
+    --gdg-bg-header-hovered: #1B3454 !important;
+    --gdg-text-dark: #E6EDF5 !important;
+    --gdg-text-medium: rgba(230, 237, 245, 0.82) !important;
+    --gdg-text-light: rgba(230, 237, 245, 0.5) !important;
+    --gdg-text-header: #A9B9CC !important;
+    --gdg-text-header-selected: #F3F7FB !important;
+    --gdg-text-group-header: #A9B9CC !important;
+    --gdg-bg-group-header: #16263A !important;
+    --gdg-border-color: rgba(148, 175, 205, 0.10) !important;
+    --gdg-horizontal-border-color: rgba(148, 175, 205, 0.08) !important;
+    --gdg-bg-icon-header: #6B7F98 !important;
+    --gdg-fg-icon-header: #F3F7FB !important;
+    --gdg-bg-bubble: rgba(59, 130, 246, 0.16) !important;
+    --gdg-bg-bubble-selected: rgba(59, 130, 246, 0.28) !important;
+    --gdg-cell-horizontal-padding: 11 !important;
+    --gdg-cell-vertical-padding: 3 !important;
+    --gdg-accent-color: #3B82F6 !important;
+    --gdg-accent-light: rgba(59, 130, 246, 0.20) !important;
+    --gdg-accent-fg: #FFFFFF !important;
+    --gdg-header-font-style: 600 11px !important;
+    --gdg-base-font-style: 12px !important;
+}
+
+/* Tables classiques (fallback) */
+table {
+    background: var(--bg-panel-soft) !important;
+    color: var(--text-primary) !important;
+    font-size: 0.83rem;
+}
+
+thead tr th {
+    background: #16263A !important;
+    color: var(--text-secondary) !important;
+    font-weight: 650 !important;
+    text-transform: none;
+    letter-spacing: 0.01em;
+}
+
+tbody tr td {
+    background: var(--bg-panel-soft) !important;
+    color: var(--text-primary) !important;
+    border-color: rgba(148, 175, 205, 0.08) !important;
+}
+
+tbody tr:nth-child(even) td {
+    background: #101D2C !important;
+}
+
+
+/* ============================================================
+   Badges
+   ============================================================ */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    border: 1px solid var(--border);
+    background: var(--bg-panel-soft);
+    color: var(--text-secondary);
+}
+
+.status-badge--info {
+    background: var(--cyan-soft);
+    color: #7DD3FC;
+    border-color: rgba(56, 189, 248, 0.36);
+}
+
+.status-badge--success {
+    background: var(--success-soft);
+    color: #86EFAC;
+    border-color: rgba(34, 197, 94, 0.36);
+}
+
+.status-badge--risk {
+    background: var(--danger-soft);
+    color: #FCA5A5;
+    border-color: rgba(239, 68, 68, 0.36);
+}
+
+.status-badge--warning {
+    background: var(--warning-soft);
+    color: #FCD34D;
+    border-color: rgba(245, 158, 11, 0.36);
+}
+
+.status-badge--neutral {
+    background: var(--bg-panel-soft);
+    color: var(--text-secondary);
+    border-color: var(--border);
+}
+
+
+/* ============================================================
+   Login page
+   ============================================================ */
+
+.st-key-login_page {
+    max-width: 1080px;
+    margin: 3rem auto 0 !important;
+    padding: 0 !important;
+}
+
+.st-key-login_page [data-testid="stVerticalBlockBorderWrapper"] {
+    box-shadow: var(--shadow-elevated) !important;
+}
+
+.login-topline {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0;
+    margin-bottom: 1.6rem;
+}
+
+.login-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: var(--primary-soft);
+    border: 1px solid rgba(59, 130, 246, 0.42);
+    color: var(--primary-strong);
+    font-weight: 800;
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+}
+
+.st-key-login_intro > div {
+    padding: 0 0.4rem !important;
+}
+
+.login-intro-content {
+    padding-top: 0.6rem;
+}
+
+.login-kicker {
+    color: var(--cyan);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+}
+
+.login-intro-content h1 {
+    font-size: 1.85rem !important;
+    line-height: 1.15;
+    margin-bottom: 0.7rem !important;
+    max-width: 460px;
+}
+
+.login-intro-content p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    max-width: 480px;
+    margin-bottom: 1.5rem;
+}
+
+.login-model-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+}
+
+.login-model-strip span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.32rem 0.65rem;
+    border-radius: 999px;
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.74rem;
+    font-weight: 600;
+}
+
+.login-model-strip span i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.55);
+}
+
+.st-key-login_form_panel {
+    background: var(--bg-panel) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    padding: 0 !important;
+}
+
+.st-key-login_form_panel > div {
+    padding: 1.4rem 1.3rem !important;
+}
+
+.login-form-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.2rem;
+}
+
+.login-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-soft);
+    border: 1px solid rgba(59, 130, 246, 0.42);
+    color: var(--primary-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    flex-shrink: 0;
+}
+
+.login-form-heading h2 {
+    color: var(--text-primary) !important;
+    font-size: 1.1rem !important;
+    margin: 0 !important;
+    line-height: 1.2;
+}
+
+.login-form-heading p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin: 0.15rem 0 0;
+}
+
+.login-footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-top: 1.6rem;
+    letter-spacing: 0.005em;
+}
+
+
+/* ============================================================
+   Tabs
+   ============================================================ */
+
+[data-testid="stTabs"] [role="tablist"] {
+    gap: 0.3rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.05rem;
+}
+
+[data-testid="stTabs"] button[role="tab"] {
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    border: 1px solid transparent !important;
+    border-bottom: 0 !important;
+    border-radius: 7px 7px 0 0 !important;
+    padding: 0.4rem 0.95rem !important;
+    font-weight: 600 !important;
+    font-size: 0.83rem !important;
+}
+
+[data-testid="stTabs"] button[role="tab"] p {
+    color: inherit !important;
+    font-size: 0.83rem !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="stTabs"] button[role="tab"]:hover {
+    color: var(--text-primary) !important;
+}
+
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
+    color: var(--primary-strong) !important;
+    background: var(--bg-panel) !important;
+    border-color: var(--border) !important;
+    border-bottom-color: var(--bg-panel) !important;
+    position: relative;
+    top: 1px;
+}
+
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] p {
+    color: var(--primary-strong) !important;
+}
+
+
+/* ============================================================
+   Expander & Popover
+   ============================================================ */
+
+[data-testid="stExpander"] {
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm);
+}
+
+[data-testid="stExpander"] summary {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+}
+
+[data-testid="stPopover"] > button {
+    background: var(--bg-panel-soft) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm);
+    min-height: 38px;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="stPopover"] > button:hover {
+    background: var(--bg-hover) !important;
+    border-color: var(--border-strong) !important;
+}
+
+
+/* ============================================================
+   Alertes (info / success / warning / error)
+   ============================================================ */
+
+[data-testid="stAlert"] {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-soft);
+    font-size: 0.85rem;
+}
+
+[data-testid="stAlert"] [data-testid="stMarkdownContainer"] p {
+    color: var(--text-primary);
+}
+
+
+/* ============================================================
+   Progress bar
+   ============================================================ */
+
+[data-testid="stProgress"] > div > div {
+    background: var(--border) !important;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+[data-testid="stProgress"] > div > div > div {
+    background: linear-gradient(90deg, var(--primary), var(--cyan)) !important;
+}
+
+
+/* ============================================================
+   Code inline
+   ============================================================ */
+
+code {
+    background: var(--bg-input) !important;
+    color: #93C5FD !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 4px;
+    padding: 0.12rem 0.3rem;
+    font-size: 0.78rem;
+    font-family: "SF Mono", "Consolas", "Monaco", monospace;
+}
+
+[data-testid="stCode"] {
+    background: var(--bg-input) !important;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+}
+
+[data-testid="stCode"] code {
+    background: transparent !important;
+    color: #BFDBFE !important;
+    border: 0 !important;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.78rem;
+}
+
+
+/* ============================================================
+   Séparateurs
+   ============================================================ */
+
+hr {
+    border-color: var(--border-soft) !important;
+    margin: 0.6rem 0 !important;
+}
+
+
+/* ============================================================
+   Plotly
+   ============================================================ */
+
+.js-plotly-plot {
+    border-radius: var(--radius-xs);
+}
+
+.js-plotly-plot .xtick text,
+.js-plotly-plot .ytick text,
+.js-plotly-plot .legendtext,
+.js-plotly-plot .g-xtitle text,
+.js-plotly-plot .g-ytitle text,
+.js-plotly-plot .annotation-text,
+.js-plotly-plot .bartext {
+    fill: var(--text-secondary) !important;
+}
+
+.st-key-panel_dashboard_quality .annotation-text {
+    fill: var(--text-primary) !important;
+}
+
+/* Modebar cachée */
+.modebar-container {
+    display: none !important;
+}
+
+
+/* ============================================================
+   Barres de commande / filtres — densité console
+   ============================================================ */
+
+[class*="st-key-command_"] {
+    padding: 0.65rem 0.85rem 0.7rem !important;
+    background: var(--bg-panel-strong) !important;
+}
+
+/* Labels de widgets plus discrets dans les barres de commande */
+[class*="st-key-command_"] [data-testid="stWidgetLabel"] p {
+    font-size: 0.66rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-dim) !important;
+    margin-bottom: 0.15rem !important;
+}
+
+/* Champs plus compacts dans les barres de commande */
+[class*="st-key-command_"] [data-baseweb="select"] > div,
+[class*="st-key-command_"] [data-baseweb="input"],
+[class*="st-key-command_"] [data-testid="stTextInputRootElement"],
+[class*="st-key-command_"] [data-testid="stNumberInputContainer"] {
+    min-height: 34px !important;
+}
+
+[class*="st-key-command_"] .stButton > button,
+[class*="st-key-command_"] [data-testid="stPopover"] > button {
+    min-height: 34px !important;
+}
+
+/* Métriques inline dans les barres de commande : petites et alignées */
+[class*="st-key-command_"] [data-testid="stMetricValue"] {
+    font-size: 1.05rem !important;
+    letter-spacing: 0;
+}
+
+[class*="st-key-command_"] [data-testid="stMetricLabel"] p {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.1em;
+}
+
+/* Multiselect : tags plus petits pour tenir sur une ligne */
+[class*="st-key-command_"] [data-baseweb="tag"] {
+    font-size: 0.68rem !important;
+    padding: 0.05rem 0.3rem !important;
+    max-width: 110px;
+}
+
+
+/* ============================================================
+   Ligne de badges (Enquête / Alertes)
+   ============================================================ */
+
+/* Rapprocher les badges de leur contexte */
+.status-badge + .status-badge {
+    margin-left: 0.35rem;
+}
+
+/* Légendes de champ type SOURCE / DESTINATION */
+[class*="st-key-panel_"] [data-testid="stCaptionContainer"] p {
+    font-size: 0.63rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--text-dim) !important;
+    margin-bottom: 0.1rem !important;
+}
+
+
+/* ============================================================
+   Ruban de score (Détection)
+   ============================================================ */
+
+.score-ribbon {
+    margin: 0.55rem 0 0.15rem;
+}
+
+.score-ribbon__track {
+    position: relative;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.score-ribbon__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    min-width: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary), var(--cyan));
+    transition: width 0.35s ease;
+}
+
+.score-ribbon--risk .score-ribbon__fill {
+    background: linear-gradient(90deg, #F97316, var(--danger));
+}
+
+.score-ribbon--safe .score-ribbon__fill {
+    background: linear-gradient(90deg, var(--primary), var(--success));
+}
+
+.score-ribbon__threshold {
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background: var(--cyan);
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.85);
+    z-index: 2;
+}
+
+.score-ribbon__legend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.3rem;
+    color: var(--text-dim);
+    font-size: 0.66rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.score-ribbon__mark {
+    color: var(--cyan);
+    font-weight: 650;
+    letter-spacing: 0.01em;
+}
+
+
+/* ============================================================
+   Bandeau de verdict (Recherche)
+   ============================================================ */
+
+.verdict-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(34, 197, 94, 0.34);
+    background: linear-gradient(100deg, rgba(34, 197, 94, 0.16), rgba(34, 197, 94, 0.05));
+    margin-bottom: 0.65rem;
+}
+
+.verdict-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16), 0 0 12px rgba(34, 197, 94, 0.7);
+    flex-shrink: 0;
+}
+
+.verdict-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    min-width: 0;
+}
+
+.verdict-copy strong {
+    color: #86EFAC;
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.verdict-copy small {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    margin-top: 0.1rem;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ============================================================
+   Chaîne de hiérarchie (Recherche)
+   ============================================================ */
+
+.hierarchy-chain {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin: 0.55rem 0 0.5rem;
+}
+
+.hierarchy-chain span {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.24rem 0.5rem;
+    border-radius: var(--radius-xs);
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.hierarchy-chain i {
+    color: var(--text-dim);
+    font-style: normal;
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.hierarchy-chain__win {
+    background: var(--success-soft) !important;
+    border-color: rgba(34, 197, 94, 0.4) !important;
+    color: #86EFAC !important;
+    font-weight: 700 !important;
+}
+
+
+/* ============================================================
+   Note protocole
+   ============================================================ */
+
+.protocol-note {
+    padding: 0.5rem 0.65rem;
+    border-radius: var(--radius-xs);
+    border-left: 3px solid var(--cyan);
+    background: var(--cyan-soft);
+    color: var(--text-secondary);
+    font-size: 0.73rem;
+    line-height: 1.45;
+}
+
+.protocol-note strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   Historique compact (Enquête)
+   ============================================================ */
+
+.history-compact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+}
+
+.history-compact-grid > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.32rem 0.55rem;
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-xs);
+}
+
+.history-compact-grid > div span {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+}
+
+.history-compact-grid > div strong {
+    color: var(--text-primary);
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ============================================================
+   Panel accents contextuels (résultat détection)
+   ============================================================ */
+
+.st-key-panel_detection_result_risk {
+    border-color: rgba(239, 68, 68, 0.32) !important;
+    box-shadow: var(--shadow-panel), inset 3px 0 0 var(--danger) !important;
+}
+
+.st-key-panel_detection_result_safe {
+    border-color: rgba(34, 197, 94, 0.32) !important;
+    box-shadow: var(--shadow-panel), inset 3px 0 0 var(--success) !important;
+}
+
+
+/* ============================================================
+   Résumé d'alertes (bloc sans bordure)
+   ============================================================ */
+
+.st-key-panel_alert_summary {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: -0.15rem 0 -0.1rem !important;
+}
+
+.st-key-panel_alert_summary [data-testid="stMetric"] {
+    padding: 0.35rem 0.75rem !important;
+    background: var(--bg-panel-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+}
+
+.st-key-panel_alert_selected {
+    gap: 0.38rem !important;
+    padding: 0.6rem 0.75rem !important;
+}
+
+.st-key-panel_alert_selected .stButton > button,
+.st-key-panel_alert_selected .stDownloadButton > button {
+    min-height: 34px !important;
+}
+
+
+/* ============================================================
+   Popover content
+   ============================================================ */
+
+[data-baseweb="popover"] > div {
+    background: var(--bg-panel-strong) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-elevated);
+}
+
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 1200px) {
+    .block-container {
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+    }
+
+    [data-testid="stMetricValue"] {
+        font-size: 1.28rem !important;
+    }
+
+    .topbar-context {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 900px) {
+    .topbar-context {
+        display: none;
+    }
+}
+
+@media (min-width: 901px) and (max-height: 900px) {
+    [data-testid="stMain"] {
+        overflow: hidden !important;
+    }
+
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: nowrap !important;
+    }
+
+    [data-testid="stColumn"] {
+        min-width: 0 !important;
+    }
+}
+
+@media (min-width: 901px) and (max-height: 800px) {
+    .block-container {
+        width: 100% !important;
+        max-width: none !important;
+        zoom: 1;
+    }
+}
+
+
+/* ============================================================
+   Finition Concept Dark / Concept Light
+   Cette couche stabilise la composition desktop et remplace les
+   anciennes compensations de débordement sans masquer le contenu.
+   ============================================================ */
+
+:root {
+    --radius: 7px;
+    --radius-sm: 6px;
+    --radius-xs: 4px;
+    --shadow-panel: 0 1px 0 rgba(255, 255, 255, 0.025) inset;
+    --shadow-elevated: 0 14px 32px rgba(0, 0, 0, 0.38);
+}
+
+[data-testid="stAppViewContainer"] {
+    background-image: none !important;
+}
+
+[data-testid="stAppViewContainer"]:has(.st-key-login_page)
+section[data-testid="stSidebar"] {
+    display: none !important;
+    width: 0 !important;
+    min-width: 0 !important;
+}
+
+[data-testid="stAppViewContainer"]:has(.st-key-login_page)
+[data-testid="stMain"] {
+    width: 100% !important;
+    margin-left: 0 !important;
+}
+
+.block-container {
+    padding: 0.55rem 0.95rem 0.3rem !important;
+}
+
+[data-testid="stVerticalBlock"] {
+    gap: 0.5rem;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]
+[data-testid="stVerticalBlock"] {
+    gap: 0.45rem;
+}
+
+/* Sidebar entièrement maîtrisée : marque, navigation, statut. */
+section[data-testid="stSidebar"] {
+    width: 220px !important;
+    min-width: 220px !important;
+    box-shadow: none !important;
+}
+
+section[data-testid="stSidebar"] > div {
+    width: 220px !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+    height: 100vh;
+    padding: 0.72rem 0.72rem 0.62rem !important;
+    overflow: hidden;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] >
+[data-testid="stVerticalBlock"] {
+    min-height: calc(100vh - 1.34rem);
+    gap: 0.16rem !important;
+}
+
+.sidebar-brand {
+    gap: 0.62rem;
+    min-height: 58px;
+    padding: 0.18rem 0.18rem 0.72rem;
+    margin: 0 0 0.62rem;
+}
+
+.brand-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    font-size: 0.72rem;
+}
+
+.brand-title {
+    font-size: 0.64rem;
+    line-height: 1.32;
+    letter-spacing: 0;
+}
+
+.brand-subtitle {
+    font-size: 0.66rem;
+    margin-top: 0.12rem;
+}
+
+.sidebar-section-label {
+    padding: 0.28rem 0.45rem 0.34rem;
+    color: #7489A3;
+    font-size: 0.58rem;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"] {
+    margin: 0 !important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-sidebar_nav_"] {
+    gap: 0 !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"] a {
+    width: 100% !important;
+    min-height: 38px;
+    justify-content: flex-start;
+    gap: 0.55rem;
+    padding: 0.42rem 0.62rem !important;
+    margin: 0 0 0.12rem !important;
+    border: 1px solid transparent !important;
+    border-left: 3px solid transparent !important;
+    border-radius: 6px !important;
+    background: transparent !important;
+    color: #C8D3E0 !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"] a p {
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    overflow-wrap: normal;
+    word-break: normal;
+    letter-spacing: 0;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"]
+[data-testid="stMarkdownContainer"] {
+    min-width: 0;
+    overflow: visible;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"] a:hover {
+    background: rgba(59, 130, 246, 0.10) !important;
+    border-color: rgba(96, 165, 250, 0.12) !important;
+    color: #FFFFFF !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"] a[aria-current="page"] {
+    background: #173454 !important;
+    border-color: #274A70 !important;
+    border-left-color: #3B82F6 !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-sidebar_nav_active_"]
+[data-testid="stPageLink"] a {
+    background: #173454 !important;
+    border-color: #274A70 !important;
+    border-left-color: #3B82F6 !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"]
+span[data-testid="stIconMaterial"] {
+    color: #8FA4BC !important;
+    font-size: 1rem !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"]
+a[aria-current="page"] span[data-testid="stIconMaterial"] {
+    color: #7DB5FF !important;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-sidebar_nav_active_"]
+span[data-testid="stIconMaterial"] {
+    color: #7DB5FF !important;
+}
+
+.st-key-sidebar_footer {
+    position: fixed;
+    left: 0.72rem;
+    bottom: 3rem;
+    z-index: 2;
+    width: calc(220px - 1.44rem);
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.st-key-sidebar_footer [data-testid="stMarkdownContainer"] {
+    margin: 0 !important;
+}
+
+.sidebar-footer {
+    margin: 0;
+    padding: 0.65rem 0.7rem;
+    border-radius: 7px;
+    background: #0E2034;
+    border-color: #203A57;
+    box-shadow: none;
+}
+
+.sidebar-footer-label {
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+}
+
+.sidebar-model {
+    margin-top: 0.42rem;
+    font-size: 0.78rem;
+}
+
+.sidebar-footer-text {
+    margin-top: 0.4rem;
+    padding-top: 0.4rem;
+    font-size: 0.61rem;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    animation: none;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.12);
+}
+
+/* Barre supérieure : une seule ligne stable et sans rognage. */
+.st-key-app_topbar {
+    min-height: 52px;
+    padding: 8px 12px !important;
+    margin-bottom: 0.52rem !important;
+    border-radius: 7px !important;
+    box-shadow: none !important;
+}
+
+.st-key-app_topbar [data-testid="stHorizontalBlock"] {
+    min-height: 34px;
+    align-items: center !important;
+}
+
+.st-key-app_topbar [data-testid="stColumn"] {
+    overflow: visible !important;
+}
+
+/* Native Markdown's negative margin must not pull identity text out of the bar. */
+.st-key-app_topbar [data-testid="stMarkdownContainer"] {
+    margin: 0 !important;
+}
+
+.topbar-product,
+.topbar-context,
+.user-chip {
+    min-height: 34px;
+}
+
+.topbar-product {
+    gap: 0.52rem;
+    font-size: 0.88rem;
+    line-height: 1.15;
+    white-space: nowrap;
+}
+
+.topbar-mark {
+    width: 29px;
+    height: 29px;
+    border-radius: 6px;
+    font-size: 0.66rem;
+}
+
+.topbar-context {
+    justify-content: flex-end;
+    gap: 0.32rem;
+    flex-wrap: nowrap;
+}
+
+.topbar-chip {
+    gap: 0.3rem;
+    padding: 0.25rem 0.48rem;
+    border-radius: 5px;
+    font-size: 0.68rem;
+}
+
+.user-chip {
+    gap: 0.44rem;
+    padding: 0 4px 0 12px;
+    justify-content: flex-end;
+    border-left: 1px solid var(--border);
+}
+
+.user-avatar {
+    width: 29px;
+    height: 29px;
+    font-size: 0.65rem;
+}
+
+.user-copy strong {
+    font-size: 0.76rem;
+}
+
+.user-copy small {
+    font-size: 0.59rem;
+}
+
+.st-key-theme_switch button,
+.st-key-login_theme_switch button,
+.st-key-logout_button button {
+    min-height: 32px !important;
+    height: 32px !important;
+    border-radius: 6px !important;
+}
+
+/* En-têtes et panneaux : hiérarchie courte, proche des références. */
+.page-heading {
+    margin: 0 0 0.48rem;
+}
+
+.page-heading-row {
+    align-items: flex-end;
+    gap: 0.7rem;
+}
+
+.page-heading-row h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.08 !important;
+    margin-bottom: 0.12rem !important;
+}
+
+.page-heading p {
+    font-size: 0.8rem;
+    line-height: 1.35;
+}
+
+.page-eyebrow {
+    font-size: 0.64rem;
+    line-height: 1.25;
+    letter-spacing: 0.09em;
+    padding-bottom: 0.14rem;
+}
+
+[class*="st-key-kpi_"],
+[class*="st-key-panel_"],
+[class*="st-key-command_"],
+.st-key-login_form_panel,
+.st-key-app_topbar {
+    border-radius: 7px !important;
+    box-shadow: none !important;
+}
+
+[class*="st-key-panel_"],
+[class*="st-key-command_"] {
+    padding: 0.58rem 0.7rem !important;
+}
+
+.panel-heading {
+    min-height: 18px;
+    margin-bottom: 0.44rem;
+    padding-bottom: 0.38rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.075em;
+}
+
+.panel-heading > span:first-child {
+    gap: 0.38rem;
+}
+
+.panel-heading > span:first-child::before {
+    width: 2px;
+    height: 11px;
+    border-radius: 1px;
+    box-shadow: none;
+}
+
+.panel-meta {
+    font-size: 0.63rem;
+    letter-spacing: 0;
+}
+
+/* Scoped network details keep account identifiers readable in both themes. */
+.network-accounts {
+    margin: 0;
+    display: grid;
+    gap: 5px;
+    font-size: 0.75rem;
+    letter-spacing: 0;
+}
+
+.network-accounts > div {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3px 10px;
+}
+
+.network-accounts dt {
+    color: var(--text-muted);
+}
+
+.network-accounts dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+}
+
+.st-key-research_network [data-testid="stMetricValue"] {
+    font-size: 1.08rem !important;
+}
+
+.st-key-panel_research_network_detail [data-testid="stMarkdownContainer"]:has(.network-accounts) {
+    margin: 0 !important;
+}
+
+.st-key-research_network [role="radio"] {
+    color: var(--text-secondary) !important;
+    background: var(--bg-input) !important;
+    border-color: var(--border) !important;
+    letter-spacing: 0;
+}
+
+.st-key-research_network [role="radio"][aria-checked="true"] {
+    color: var(--primary-strong) !important;
+    background: var(--primary-soft) !important;
+    border-color: var(--primary) !important;
+}
+
+.st-key-research_network [data-testid="stCaptionContainer"] p {
+    color: var(--text-muted) !important;
+}
+
+/* KPI uniformes avec accents sémantiques discrets. */
+[class*="st-key-kpi_"] {
+    min-height: 68px;
+    height: 100%;
+    padding: 0.35rem 0.7rem !important;
+    border-top-width: 2px !important;
+    border-top-color: #36526F !important;
+}
+
+[class*="st-key-kpi_"] [data-testid="stMetricLabel"] p {
+    font-size: 0.63rem !important;
+    letter-spacing: 0.075em;
+}
+
+[class*="st-key-kpi_"] [data-testid="stMetricValue"] {
+    font-size: 1.5rem !important;
+    line-height: 1.08;
+    margin-top: 0.12rem;
+}
+
+[class*="st-key-kpi_"] [data-testid="stCaptionContainer"] p {
+    font-size: 0.64rem !important;
+    margin-top: 0.12rem;
+}
+
+.st-key-kpi_dashboard_alerts,
+.st-key-kpi_dashboard_frauds,
+.st-key-kpi_alerts_total,
+.st-key-kpi_alerts_fp {
+    border-top-color: var(--danger) !important;
+}
+
+.st-key-kpi_dashboard_precision,
+.st-key-kpi_dashboard_prauc,
+.st-key-kpi_alerts_tp,
+.st-key-kpi_alerts_precision,
+.st-key-kpi_research_lightgbm {
+    border-top-color: var(--success) !important;
+}
+
+.st-key-kpi_dashboard_transactions,
+.st-key-kpi_dashboard_amount,
+.st-key-kpi_research_graphsage,
+.st-key-kpi_research_dynamic,
+.st-key-kpi_research_nomemory {
+    border-top-color: var(--cyan) !important;
+}
+
+[class*="st-key-panel_"] [data-testid="stMetricValue"],
+[class*="st-key-command_"] [data-testid="stMetricValue"] {
+    font-size: 1.08rem !important;
+}
+
+/* Widgets compacts, tactiles et cohérents. */
+[data-baseweb="input"],
+[data-testid="stTextInputRootElement"],
+[data-testid="stNumberInputContainer"],
+[data-baseweb="select"] > div {
+    min-height: 34px !important;
+    border-radius: 6px !important;
+}
+
+.stButton > button,
+.stDownloadButton > button,
+.stFormSubmitButton > button,
+[data-testid^="stBaseButton-"] {
+    min-height: 34px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover,
+.stFormSubmitButton > button:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+[data-baseweb="tag"],
+.status-badge,
+.login-model-strip span,
+.hierarchy-chain span {
+    border-radius: 5px !important;
+}
+
+.status-badge {
+    padding: 0.2rem 0.45rem;
+    font-size: 0.65rem;
+}
+
+[data-testid="stTabs"] [role="tablist"] {
+    min-height: 33px;
+    gap: 0.12rem;
+}
+
+[data-testid="stTabs"] button[role="tab"] {
+    min-height: 32px;
+    padding: 0.34rem 0.68rem !important;
+    border-radius: 6px 6px 0 0 !important;
+    font-size: 0.72rem !important;
+}
+
+[data-testid="stPopover"] > button,
+[data-testid="stExpander"] {
+    border-radius: 6px !important;
+}
+
+/* Les tables gardent leur propre défilement interne. */
+[data-testid="stDataFrame"],
+[data-testid="stDataFrameResizable"] {
+    border-radius: 6px !important;
+}
+
+/* Densité propre aux rangées opérationnelles. */
+[class*="st-key-command_"] {
+    padding: 0.52rem 0.68rem 0.58rem !important;
+}
+
+[class*="st-key-command_"] [data-testid="stWidgetLabel"] p {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.07em;
+}
+
+.st-key-panel_alert_selected {
+    gap: 0.3rem !important;
+    padding: 0.55rem 0.65rem !important;
+}
+
+.st-key-panel_alert_summary [data-testid="stMetric"] {
+    border-radius: 6px;
+    padding: 0.3rem 0.65rem !important;
+}
+
+.verdict-banner,
+.protocol-note,
+.history-compact-grid > div {
+    border-radius: 5px;
+}
+
+/* Connexion compacte, sans décor marketing. */
+.st-key-login_page {
+    max-width: 1010px;
+    margin: 3.2rem auto 0 !important;
+}
+
+.login-logo {
+    border-radius: 7px;
+}
+
+.st-key-login_form_panel {
+    border-radius: 7px !important;
+}
+
+/* Aucun masquage global : la page doit réellement tenir dans la fenêtre. */
+@media (min-width: 901px) and (max-height: 900px) {
+    [data-testid="stMain"] {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: nowrap !important;
+    }
+
+    [data-testid="stColumn"] {
+        min-width: 0 !important;
+    }
+}
+
+@media (min-width: 901px) and (max-height: 800px) {
+    .block-container {
+        width: 100% !important;
+        max-width: none !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        zoom: 1;
+    }
+
+    [data-testid="stMain"]:has(.st-key-login_page) .block-container {
+        width: 100% !important;
+        zoom: 1;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1300px) {
+    section[data-testid="stSidebar"],
+    section[data-testid="stSidebar"] > div {
+        width: 204px !important;
+        min-width: 204px !important;
+    }
+
+    .st-key-sidebar_footer {
+        width: calc(204px - 1.44rem);
+    }
+
+    .topbar-product {
+        font-size: 0.76rem;
+    }
+
+    .topbar-chip {
+        font-size: 0.61rem;
+        padding-inline: 0.38rem;
+    }
+
+    .user-copy small {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    section[data-testid="stSidebar"],
+    section[data-testid="stSidebar"] > div {
+        width: auto !important;
+        min-width: 0 !important;
+    }
+
+    section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .st-key-sidebar_footer {
+        position: static;
+        width: auto;
+        margin-top: 1rem !important;
+    }
+}
+
+
+/* ============================================================
+   Audit d'alignement final
+   ============================================================ */
+
+/* Les six KPI du dashboard restent lisibles tout en libérant la
+   hauteur nécessaire aux blocs opérationnels. */
+.st-key-kpi_dashboard_transactions,
+.st-key-kpi_dashboard_alerts,
+.st-key-kpi_dashboard_frauds,
+.st-key-kpi_dashboard_precision,
+.st-key-kpi_dashboard_volume,
+.st-key-kpi_dashboard_pr_auc {
+    min-height: 64px;
+    padding: 0.3rem 0.58rem !important;
+}
+
+.st-key-kpi_dashboard_transactions [data-testid="stMetric"],
+.st-key-kpi_dashboard_alerts [data-testid="stMetric"],
+.st-key-kpi_dashboard_frauds [data-testid="stMetric"],
+.st-key-kpi_dashboard_precision [data-testid="stMetric"],
+.st-key-kpi_dashboard_volume [data-testid="stMetric"],
+.st-key-kpi_dashboard_pr_auc [data-testid="stMetric"] {
+    gap: 0 !important;
+}
+
+.st-key-kpi_dashboard_transactions [data-testid="stMetricLabel"] p,
+.st-key-kpi_dashboard_alerts [data-testid="stMetricLabel"] p,
+.st-key-kpi_dashboard_frauds [data-testid="stMetricLabel"] p,
+.st-key-kpi_dashboard_precision [data-testid="stMetricLabel"] p,
+.st-key-kpi_dashboard_volume [data-testid="stMetricLabel"] p,
+.st-key-kpi_dashboard_pr_auc [data-testid="stMetricLabel"] p {
+    font-size: 0.58rem !important;
+    line-height: 1.1 !important;
+}
+
+.st-key-kpi_dashboard_transactions [data-testid="stMetricValue"],
+.st-key-kpi_dashboard_alerts [data-testid="stMetricValue"],
+.st-key-kpi_dashboard_frauds [data-testid="stMetricValue"],
+.st-key-kpi_dashboard_precision [data-testid="stMetricValue"],
+.st-key-kpi_dashboard_volume [data-testid="stMetricValue"],
+.st-key-kpi_dashboard_pr_auc [data-testid="stMetricValue"] {
+    margin-top: 0.04rem !important;
+    font-size: 1.26rem !important;
+    line-height: 1 !important;
+}
+
+.st-key-kpi_dashboard_transactions [data-testid="stCaptionContainer"] p,
+.st-key-kpi_dashboard_alerts [data-testid="stCaptionContainer"] p,
+.st-key-kpi_dashboard_frauds [data-testid="stCaptionContainer"] p,
+.st-key-kpi_dashboard_precision [data-testid="stCaptionContainer"] p,
+.st-key-kpi_dashboard_volume [data-testid="stCaptionContainer"] p,
+.st-key-kpi_dashboard_pr_auc [data-testid="stCaptionContainer"] p {
+    margin-top: 0.05rem !important;
+    font-size: 0.58rem !important;
+    line-height: 1.1 !important;
+}
+
+/* Accents cohérents : rouge pour le risque, vert pour les résultats
+   validés, cyan pour le volume et l'activité. */
+.st-key-kpi_dashboard_alerts {
+    border-top-color: var(--danger) !important;
+}
+
+.st-key-kpi_dashboard_frauds,
+.st-key-kpi_dashboard_precision,
+.st-key-kpi_dashboard_pr_auc {
+    border-top-color: var(--success) !important;
+}
+
+.st-key-kpi_dashboard_transactions,
+.st-key-kpi_dashboard_volume {
+    border-top-color: var(--cyan) !important;
+}
+
+/* Empêche les colonnes serrées et l'identité analyste de pousser la
+   grille hors du viewport. */
+.user-copy {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.user-copy strong,
+.user-copy small {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (min-width: 901px) {
+    [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {
+        min-width: 0 !important;
+    }
+
+    [class*="st-key-panel_"],
+    [class*="st-key-command_"],
+    [class*="st-key-kpi_"] {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    [data-testid="stMain"] {
+        overflow-x: hidden !important;
+    }
+
+    .block-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0.55rem 0.7rem 1rem !important;
+    }
+
+    [data-testid="stMain"] [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+    }
+
+    [data-testid="stMain"] [data-testid="stHorizontalBlock"] >
+    [data-testid="stColumn"] {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(.st-key-kpi_dashboard_transactions) >
+    [data-testid="stColumn"],
+    [data-testid="stHorizontalBlock"]:has(.st-key-kpi_alerts_total) >
+    [data-testid="stColumn"],
+    [data-testid="stHorizontalBlock"]:has(.st-key-kpi_research_graphsage) >
+    [data-testid="stColumn"],
+    .st-key-panel_alert_summary [data-testid="stHorizontalBlock"] >
+    [data-testid="stColumn"],
+    .st-key-panel_dashboard_quality [data-testid="stHorizontalBlock"] >
+    [data-testid="stColumn"] {
+        flex: 1 1 calc(50% - 0.25rem) !important;
+        width: calc(50% - 0.25rem) !important;
+        min-width: calc(50% - 0.25rem) !important;
+    }
+
+    [class*="st-key-panel_"][data-testid="stVerticalBlock"] {
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    .page-heading-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+
+    .page-eyebrow {
+        order: -1;
+        padding-bottom: 0;
+    }
+
+    .st-key-app_topbar [data-testid="stHorizontalBlock"] {
+        display: grid !important;
+        grid-template-columns: 32px 34px minmax(0, 1fr) 34px;
+        gap: 0.35rem !important;
+        align-items: center !important;
+    }
+
+    .st-key-app_topbar [data-testid="stColumn"] {
+        display: block;
+        width: auto !important;
+        min-width: 0 !important;
+    }
+
+    .st-key-app_topbar [data-testid="stColumn"]:has(.topbar-context) {
+        display: none !important;
+    }
+
+    .topbar-product > span:last-child,
+    .user-copy small {
+        display: none !important;
+    }
+
+    .topbar-product,
+    .user-chip {
+        min-width: 0;
+        justify-content: flex-start;
+    }
+
+    .user-copy strong {
+        font-size: 0.68rem;
+    }
+
+    .st-key-login_page {
+        margin: 0.8rem auto 0 !important;
+    }
+
+    .st-key-login_page [data-testid="stHorizontalBlock"]:has(
+        .st-key-login_theme_switch
+    ) {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) 34px;
+        gap: 0.5rem !important;
+        align-items: center !important;
+    }
+
+    .st-key-login_page [data-testid="stHorizontalBlock"]:has(
+        .st-key-login_theme_switch
+    ) > [data-testid="stColumn"] {
+        display: block;
+        width: auto !important;
+        min-width: 0 !important;
+    }
+
+    .st-key-login_theme_switch button {
+        width: 34px !important;
+        min-width: 34px !important;
+        padding-inline: 0 !important;
+    }
+}
+
+/* Finitions chromatiques communes aux deux themes. */
+[data-testid="stMain"] [data-testid="stVerticalBlock"][class*="st-key-kpi_"] {
+    border-top: 2px solid var(--surface-accent, var(--cyan)) !important;
+}
+
+.st-key-kpi_dashboard_alerts,
+.st-key-kpi_alerts_total {
+    --surface-accent: var(--danger);
+}
+
+.st-key-kpi_dashboard_precision,
+.st-key-kpi_dashboard_pr_auc,
+.st-key-kpi_alerts_tp,
+.st-key-kpi_alerts_precision,
+.st-key-kpi_research_lightgbm {
+    --surface-accent: var(--success);
+}
+
+.st-key-kpi_dashboard_frauds,
+.st-key-kpi_alerts_fp,
+.st-key-kpi_research_graphsage {
+    --surface-accent: var(--text-muted);
+}
+
+.st-key-kpi_research_nomemory {
+    --surface-accent: var(--primary);
+}
+
+[data-testid="stMain"] :is(
+    .st-key-panel_dashboard_alerts,
+    .st-key-panel_alert_selected,
+    .st-key-panel_investigation_summary,
+    .st-key-panel_detection_result_risk
+) {
+    box-shadow: inset 3px 0 0 var(--danger) !important;
+}
+
+[data-testid="stMain"] .st-key-panel_detection_result_safe {
+    box-shadow: inset 3px 0 0 var(--success) !important;
+}
+
+[data-testid="stMain"] :is(
+    .st-key-panel_dashboard_alerts,
+    .st-key-panel_alert_table,
+    .st-key-panel_alert_selected,
+    .st-key-panel_investigation_summary,
+    .st-key-panel_detection_result_risk
+) .panel-heading > span:first-child::before {
+    background: var(--danger) !important;
+}
+
+[data-testid="stMain"] :is(
+    .st-key-panel_dashboard_quality,
+    .st-key-panel_detection_result_safe,
+    .st-key-panel_research_reading
+) .panel-heading > span:first-child::before {
+    background: var(--success) !important;
+}
+
+/* Le texte Markdown doit heriter de la couleur du controle. */
+button [data-testid="stMarkdownContainer"],
+button [data-testid="stMarkdownContainer"] p,
+[data-testid="stPageLink"] a :is(span, div, p) {
+    color: inherit !important;
+}
+
+section[data-testid="stSidebar"] {
+    --text-primary: #F3F7FB;
+    --text-secondary: #D3DFEC;
+    --text-muted: #AABCD0;
+    --text-dim: #93A8C0;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"] a {
+    transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"] a:focus-visible {
+    outline: 2px solid #93C5FD;
+    outline-offset: 2px;
+}
+
+section[data-testid="stSidebar"] [class*="st-key-sidebar_nav_active_"]
+[data-testid="stPageLink"] a {
+    background: #1D3E60 !important;
+    border-left-color: #60A5FA !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stPageLink"] a[href="Alertes"]
+[data-testid="stIconMaterial"] {
+    color: #FB9098 !important;
+}
+
+/* L'en-tete natif ne doit pas ajouter une hauteur de viewport. */
+section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
+    padding: 0 !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarHeader"] {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding-block: 0 !important;
+    margin: 0 !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible;
+    padding-bottom: 8rem !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] >
+[data-testid="stVerticalBlock"] {
+    min-height: 0 !important;
+}
+
+/* Selectbox react-aria et popovers de Streamlit 1.59. */
+.react-aria-ComboBox [role="group"] {
+    background: var(--bg-input) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px;
+}
+
+.react-aria-ComboBox :is(input, button) {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+}
+
+.react-aria-ComboBox [role="group"]:focus-within {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px var(--primary-soft);
+}
+
+[data-testid="stPopoverButton"] {
+    color: var(--text-primary) !important;
+    background: var(--bg-panel-soft) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px;
+}
+
+[data-testid="stPopoverButton"]:hover {
+    background: var(--bg-hover) !important;
+    border-color: var(--border-strong) !important;
+}
+
+[data-testid="stCode"] pre {
+    background: var(--bg-panel-soft) !important;
+}
+
+[data-testid="stTooltipContent"] {
+    background: var(--bg-panel-strong) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border);
+}
+
+[data-testid="stTooltipContent"] p {
+    color: var(--text-primary) !important;
+}
+
+/* Les onglets restent distincts meme quand leur libelle est court. */
+.stTabs [role="tablist"] {
+    gap: 0.35rem !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.stTabs [role="tab"] {
+    padding: 0.4rem 0.75rem !important;
+    color: var(--text-secondary) !important;
+    border-radius: 5px 5px 0 0;
+}
+
+.stTabs [role="tab"][aria-selected="true"] {
+    background: var(--primary-soft) !important;
+    color: var(--primary-strong) !important;
+}
+
+.stTabs [role="tab"] p {
+    color: inherit !important;
+}
+
+/* Conserver le bouton natif de reouverture sans la barre d'outils. */
+[data-testid="stHeader"]:has([data-testid="stExpandSidebarButton"]),
+[data-testid="stToolbar"]:has([data-testid="stExpandSidebarButton"]) {
+    display: flex !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: visible !important;
+    pointer-events: none !important;
+}
+
+[data-testid="stAppDeployButton"],
+[data-testid="stMainMenu"],
+[data-testid="stToolbarActions"] {
+    display: none !important;
+}
+
+[data-testid="stExpandSidebarButton"] {
+    position: fixed;
+    top: 15px;
+    left: 8px;
+    width: 30px;
+    height: 32px;
+    pointer-events: auto !important;
+    background: var(--bg-panel-soft) !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px;
+}
+
+[data-testid="stExpandSidebarButton"] [data-testid="stIconMaterial"] {
+    color: inherit !important;
+}
+
+section[data-testid="stSidebar"][aria-expanded="false"] {
+    width: 0 !important;
+    min-width: 0 !important;
+}
+
+[data-testid="stAppViewContainer"]:has(
+    [data-testid="stSidebar"][aria-expanded="false"]
+) .st-key-app_topbar {
+    margin-left: 34px;
+    width: calc(100% - 34px);
+}
+
+[data-testid="stAppViewContainer"]:has(.st-key-login_page)
+[data-testid="stExpandSidebarButton"] {
+    display: none !important;
+}
+
+/* Compact filters keep their labels aligned when selected tags wrap. */
+.st-key-command_alerts_filters [data-testid="stWidgetLabel"] {
+    min-height: 20px;
+    margin-bottom: 4px;
+}
+
+.st-key-command_alerts_filters [data-baseweb="tag"] {
+    margin: 1px;
+    padding: 1px 4px !important;
+    font-size: 0.68rem !important;
+    height: 20px;
+    min-height: 20px;
+    letter-spacing: 0;
+}
+
+.st-key-command_alerts_filters [data-baseweb="tag"] span[title] {
+    font-size: inherit !important;
+}
+
+.st-key-command_alerts_filters [data-baseweb="select"] > div > div:first-child {
+    padding: 2px !important;
+}
+
+.st-key-command_alerts_filters [data-baseweb="select"] > div,
+.st-key-command_alerts_filters [data-testid="stNumberInputContainer"],
+.st-key-command_alerts_filters .react-aria-ComboBox [role="group"],
+.st-key-command_alerts_filters [data-testid="stPopoverButton"] {
+    min-height: 52px !important;
+}
+
+.st-key-command_alerts_filters [data-testid="stPopover"] {
+    padding-top: 24px;
+}
+
+/* Captions remain secondary without fading into the panel background. */
+[data-testid="stMain"] [data-testid="stCaptionContainer"] {
+    margin-bottom: 0 !important;
+}
+
+[data-testid="stMain"] [data-testid="stCaptionContainer"] p {
+    margin: 0 !important;
+    color: var(--text-muted) !important;
+    letter-spacing: 0;
+    line-height: 1.35 !important;
+}
+
+[data-testid="stMain"] [class*="st-key-kpi_"] [data-testid="stCaptionContainer"] p {
+    font-size: 0.68rem !important;
+}
+
+[data-testid="stMain"] [class*="st-key-panel_"] [data-testid="stCaptionContainer"] p {
+    font-size: 0.68rem !important;
+    text-transform: none;
+    font-weight: 500 !important;
+}
+
+[data-testid="stMain"] [class*="st-key-panel_"] [data-testid="stCode"] pre {
+    padding: 8px 10px !important;
+}
+
+[data-testid="stMain"] [data-testid="stMetricLabel"] p {
+    white-space: normal;
+    overflow-wrap: normal;
+    letter-spacing: 0;
+}
+
+/* Compact KPI internals: retain the type sizes, remove default vertical space. */
+[data-testid="stMain"] [data-testid="stVerticalBlock"][class*="st-key-kpi_"] {
+    gap: 3px !important;
+}
+
+[data-testid="stMain"] [data-testid="stMetricLabel"] {
+    height: auto !important;
+    min-height: 0 !important;
+}
+
+[data-testid="stMain"] [data-testid="stMetricLabel"] p {
+    margin: 0 !important;
+    line-height: 1.25 !important;
+}
+
+[data-testid="stMain"] [data-testid="stMetricValue"] p {
+    margin: 0 !important;
+    line-height: 1.2 !important;
+}
+
+[data-testid="stMain"] [class*="st-key-kpi_"] [data-testid="stMetricValue"] p {
+    line-height: 1.1 !important;
+}
+
+/* Icons share the label line without increasing compact KPI heights. */
+[data-testid="stMain"] [data-testid="stMetricLabel"] p:has(span[role="img"][translate="no"]) {
+    position: relative;
+    padding-left: 20px;
+}
+
+[data-testid="stMain"] [data-testid="stMetricLabel"] span[role="img"][translate="no"] {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--surface-accent, var(--cyan)) !important;
+}
+
+@media (min-width: 901px) {
+    .st-key-app_topbar [data-testid="stHorizontalBlock"] {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto 34px minmax(164px, max-content) 34px;
+        gap: 12px !important;
+    }
+
+    .st-key-app_topbar [data-testid="stColumn"] {
+        width: auto !important;
+        min-width: 0 !important;
+    }
+
+    .topbar-product {
+        white-space: normal;
+    }
+
+    .topbar-mark {
+        flex-shrink: 0;
+    }
+
+    .st-key-app_topbar .user-copy small {
+        display: block;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+    .st-key-app_topbar [data-testid="stHorizontalBlock"] {
+        grid-template-columns: minmax(0, 1fr) 34px minmax(164px, max-content) 34px;
+        gap: 8px !important;
+    }
+
+    .st-key-app_topbar [data-testid="stColumn"]:has(.topbar-context) {
+        display: none !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .st-key-app_topbar .user-chip {
+        padding-left: 6px;
+    }
+}
+
+@media (min-width: 901px) and (max-height: 850px) {
+    [data-testid="stMain"] [data-testid="stVerticalBlock"] {
+        gap: 0.375rem;
+    }
+
+    [data-testid="stMain"] :is([class*="st-key-panel_"], [class*="st-key-command_"])
+    [data-testid="stMetricLabel"] {
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    [data-testid="stMain"] :is([class*="st-key-panel_"], [class*="st-key-command_"])
+    [data-testid="stMetricLabel"] p {
+        line-height: 1.25 !important;
+        margin: 0 !important;
+    }
+
+    [data-testid="stMain"] :is([class*="st-key-panel_"], [class*="st-key-command_"])
+    [data-testid="stMetricValue"] p {
+        line-height: 1.2 !important;
+        margin: 0 !important;
+    }
+}

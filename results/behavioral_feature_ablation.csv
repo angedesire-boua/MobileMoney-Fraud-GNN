@@ -1,0 +1,3 @@
+configuration,n_features,historical_features,best_iteration,average_precision,roc_auc
+Core,22,8,209,0.9297036922443951,0.9998920563840159
+Core No History,14,0,328,0.9308537077777049,0.9998966609752916

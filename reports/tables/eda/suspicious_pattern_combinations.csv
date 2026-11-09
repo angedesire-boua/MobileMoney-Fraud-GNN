@@ -1,0 +1,7 @@
+﻿Type à risque,Montant élevé,Transfert total,Transactions,Fraudes,Taux de fraude (%)
+True,True,True,1814,1814,100.0
+True,False,True,6194,6194,100.0
+True,True,False,61808,155,0.25077659849857625
+True,False,False,2700593,50,0.0018514452196239863
+False,True,False,5,0,0.0
+False,False,False,3592206,0,0.0

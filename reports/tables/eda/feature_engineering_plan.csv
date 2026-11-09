@@ -1,0 +1,15 @@
+﻿Famille,Feature candidate,Priorité
+Montant,log_amount,Haute
+Montant,amount_to_oldbalance_ratio,Haute
+Soldes,origin_balance_change,Haute
+Soldes,destination_balance_change,Haute
+Soldes,origin_emptied,Haute
+Soldes,full_balance_transfer,Haute
+Type,type_encoded,Haute
+Temps,cycle_position,Moyenne
+Temps,time_since_last_transaction,Haute
+Comportement,recent_transaction_count,Haute
+Comportement,recent_transaction_volume,Haute
+Graphe,historical_in_degree,Haute
+Graphe,historical_out_degree,Moyenne
+Graphe,historical_unique_neighbors,Haute
