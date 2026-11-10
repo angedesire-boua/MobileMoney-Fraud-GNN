@@ -12,11 +12,11 @@ Une étude comparative de la fraude transactionnelle sur **PaySim**, de l’anal
 | :---: | :---: | :---: |
 | Transactions simulées | Fraudes dans PaySim | PR-AUC de LightGBM Core sur Test |
 
-<p align="center">
-  <img src="reports/figures/eda/37_fraud_local_subgraph.png" width="720" alt="Sous-graphe PaySim autour de comptes destinataires impliqués dans des transactions frauduleuses">
-</p>
+![Tableau de bord Streamlit avec les indicateurs du jeu Test PaySim, l’activité transactionnelle et les alertes prioritaires](docs/screenshots/tableau-de-bord.png)
 
-*Extrait de l’analyse exploratoire. Les nœuds représentent des comptes simulés et les liens représentent des transactions.*
+*Le tableau de bord présente l’activité transactionnelle et les alertes produites par LightGBM Core sur le jeu Test PaySim.*
+
+[Voir les autres écrans de la console](#captures-de-lapplication)
 
 ## Contexte et objectif
 
@@ -37,6 +37,15 @@ Le projet teste cette question en comparant **LightGBM Core**, **GraphSAGE**, un
 | Graphe | 9 073 900 comptes et 6 362 620 transactions représentées par des liens orientés |
 
 Les statistiques descriptives sont disponibles dans le [rapport de compréhension des données](reports/data_understanding/data_understanding_summary.json).
+
+<details>
+<summary>Sous-graphe de l’analyse exploratoire</summary>
+
+![Sous-graphe PaySim autour de comptes destinataires impliqués dans des transactions frauduleuses](reports/figures/eda/37_fraud_local_subgraph.png)
+
+*Les nœuds représentent des comptes simulés et les liens représentent des transactions.*
+
+</details>
 
 ## Pipeline expérimental
 
@@ -94,6 +103,48 @@ La console permet d’explorer les prédictions du jeu Test et d’expliquer les
 
 [Code de l’application](app/) · [Audit applicatif](notebooks/09_application_audit.ipynb)
 
+### Captures de l’application
+
+<details>
+<summary><strong>Détection</strong></summary>
+
+![Écran Détection montrant le score d’une transaction, sa position par rapport au seuil et les contributions des variables](docs/screenshots/detection.png)
+
+*Analyse d’une transaction du jeu Test et explication de son score LightGBM.*
+
+</details>
+
+<details>
+<summary><strong>Alertes</strong></summary>
+
+![File d’alertes filtrable avec le détail de la transaction sélectionnée et l’accès à l’enquête](docs/screenshots/alertes.png)
+
+*Tri et filtrage des alertes avant l’ouverture d’une enquête.*
+
+</details>
+
+<details>
+<summary><strong>Enquête</strong></summary>
+
+![Vue Enquête avec l’historique des comptes, le graphe local et l’explication du score de l’alerte](docs/screenshots/enquete.png)
+
+*Examen du contexte d’une alerte à partir des transactions antérieures.*
+
+</details>
+
+<details>
+<summary><strong>Recherche — réseau des alertes et conclusion</strong></summary>
+
+**Réseau des alertes**
+
+![Vue d’ensemble du réseau des 3 095 alertes et fiche de la transaction sélectionnée](docs/screenshots/recherche-reseau-alertes.png)
+
+**Conclusion scientifique**
+
+![Synthèse des résultats sur les quatre modèles et des limites structurelles du graphe PaySim](docs/screenshots/recherche-conclusion.png)
+
+</details>
+
 ## Installation locale
 
 1. Cloner le dépôt et créer un environnement Python 3.13.
@@ -134,6 +185,7 @@ Le CSV PaySim se télécharge séparément. Les notebooks génèrent les donnée
 ```text
 MobileMoney-Fraud-GNN/
 ├── app/                 Console Streamlit et fonctions d’investigation
+├── docs/screenshots/    Captures de l’application
 ├── notebooks/           Analyses, entraînements et audit
 ├── reports/             Figures et tableaux d’analyse
 ├── results/             Métriques et paramètres de sélection
