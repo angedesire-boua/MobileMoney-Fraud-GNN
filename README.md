@@ -133,7 +133,7 @@ La console permet d’explorer les prédictions du jeu Test et d’expliquer les
 </details>
 
 <details>
-<summary><strong>Recherche — réseau des alertes et conclusion</strong></summary>
+<summary><strong>Recherche - réseau des alertes et conclusion</strong></summary>
 
 **Réseau des alertes**
 
