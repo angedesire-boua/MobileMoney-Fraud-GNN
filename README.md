@@ -4,7 +4,7 @@
 
 Une étude comparative de la fraude transactionnelle sur **PaySim**, de l’analyse exploratoire à une console d’investigation Streamlit. Le projet mesure l’apport du graphe et de la mémoire temporelle face à une référence tabulaire LightGBM.
 
-[Contexte](#contexte-et-objectif) · [Pipeline](#pipeline-expérimental) · [Résultats](#résultats) · [Application](#application-streamlit) · [Installation](#installation-locale)
+[Contexte](#contexte-et-objectif) · [Graphe PaySim](#graphe-paysim) · [Pipeline](#pipeline-expérimental) · [Résultats](#résultats) · [Application](#application-streamlit) · [Installation](#installation-locale)
 
 ## Aperçu du projet
 
@@ -38,14 +38,11 @@ Le projet teste cette question en comparant **LightGBM Core**, **GraphSAGE**, un
 
 Les statistiques descriptives sont disponibles dans le [rapport de compréhension des données](reports/data_understanding/data_understanding_summary.json).
 
-<details>
-<summary>Sous-graphe de l’analyse exploratoire</summary>
+### Graphe PaySim
 
 ![Sous-graphe PaySim autour de comptes destinataires impliqués dans des transactions frauduleuses](reports/figures/eda/37_fraud_local_subgraph.png)
 
-*Les nœuds représentent des comptes simulés et les liens représentent des transactions.*
-
-</details>
+*Ce sous-graphe exploratoire montre les transactions autour de quelques comptes destinataires impliqués dans la fraude. Chaque nœud représente un compte simulé et chaque lien une transaction.*
 
 ## Pipeline expérimental
 
